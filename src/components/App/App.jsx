@@ -52,6 +52,14 @@ export class App extends Component {
         return toast.info('Sorry, no images for your query...', {
           position: toast.POSITION.TOP_RIGHT,
         });
+      } else if (currentPage === 1) {
+        toast.success('Wow! We found some images for you!', {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      } else {
+        toast.success('Wow! We found some more images for you!', {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       }
 
       const normalizedHits = normalizeHits(data.hits);
