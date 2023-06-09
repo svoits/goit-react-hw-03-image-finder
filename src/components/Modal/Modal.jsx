@@ -1,52 +1,53 @@
-import { Component } from 'react';
-import { createPortal } from 'react-dom';
+import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
-import { ModalDiv, Overlay } from './Modal.styled';
-import {
-  disableBodyScroll,
-  enableBodyScroll,
-  clearAllBodyScrollLocks,
-} from 'body-scroll-lock';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
-const modalRoot = document.querySelector('#modal');
+const customStyles = {
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: '100vw',
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    zIndex: 1200,
+  },
+  content: {
+    backgroundColor: 'transparent',
+    maxWidth: 'calc(100vw - 48px)',
+    maxHeight: 'calc(100vh - 24px)',
+    padding: 0,
+    border: 'none',
+    position: 'static',
+    borderRadius: 0,
+    overflow: 'hidden',
+  },
+};
 
-export class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown);
-    disableBodyScroll('body');
-  }
+ReactModal.setAppElement('#root');
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown);
-    clearAllBodyScrollLocks();
-  }
-
-  handleKeyDown = e => {
-    if (e.code === 'Escape') this.props.onClose();
-    enableBodyScroll('body');
-  };
-
-  handleBackdropClick = e => {
-    if (e.target === e.currentTarget) this.props.onClose();
-    enableBodyScroll('body');
-  };
-
-  render() {
-    const { largeImageURL, tags } = this.props;
-
-    return createPortal(
-      <Overlay onClick={this.handleBackdropClick}>
-        <ModalDiv>
-          <img src={largeImageURL} alt={tags} />
-        </ModalDiv>
-      </Overlay>,
-      modalRoot
-    );
-  }
-}
+export const Modal = ({ isOpen, largeImageURL, tags, onClose }) => {
+  return (
+    <ReactModal
+      style={customStyles}
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      onAfterOpen={() => disableBodyScroll(document)}
+      onAfterClose={() => enableBodyScroll(document)}
+    >
+      <img src={largeImageURL} alt={tags} />
+    </ReactModal>
+  );
+};
 
 Modal.propTypes = {
   largeImageURL: PropTypes.string.isRequired,
   tags: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
 };
