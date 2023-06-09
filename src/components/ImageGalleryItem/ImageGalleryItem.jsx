@@ -20,15 +20,10 @@ export class ImageGalleryItem extends Component {
       image: { webformatURL, largeImageURL, tags },
     } = this.props;
 
-    console.log(this.props.image);
-    console.log(webformatURL);
-    console.log(largeImageURL);
-    console.log(tags);
-
     return (
-      <ImageGalleryItem>
+      <>
         <ImageGalleryItemImg
-          src={this.props.image?.webformatURL}
+          src={webformatURL}
           alt={tags}
           onClick={this.toggleModal}
         />
@@ -39,7 +34,7 @@ export class ImageGalleryItem extends Component {
             onClose={this.toggleModal}
           />
         )}
-      </ImageGalleryItem>
+      </>
     );
   }
 }

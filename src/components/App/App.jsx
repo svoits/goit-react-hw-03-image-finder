@@ -25,6 +25,10 @@ export class App extends Component {
         this.getImages();
       });
     }
+
+    if (prevState.currentPage !== this.state.currentPage) {
+      this.getImages();
+    }
   }
 
   getImages = async () => {
@@ -44,7 +48,6 @@ export class App extends Component {
 
       this.setState(prevState => ({
         images: [...prevState.images, ...normalizedHits],
-        // isLoading: false,
         isLastPage:
           prevState.images.length + normalizedHits.length >= data.totalHits,
         error: null,

@@ -8,7 +8,7 @@ export const AppWrapper = styled.div`
 `;
 
 export const Error = styled.p`
-  padding-top: 70px;
+  padding-top: 80px;
   text-align: center;
   font-size: 24px;
 `;
