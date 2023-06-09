@@ -20,13 +20,10 @@ export class App extends Component {
   };
 
   componentDidUpdate(_, prevState) {
-    if (prevState.query !== this.state.query) {
-      this.setState({ images: [], currentPage: 1, isLastPage: false }, () => {
-        this.getImages();
-      });
-    }
-
-    if (prevState.currentPage !== this.state.currentPage) {
+    if (
+      prevState.query !== this.state.query ||
+      prevState.currentPage !== this.state.currentPage
+    ) {
       this.getImages();
     }
   }
