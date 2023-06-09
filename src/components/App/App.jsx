@@ -10,6 +10,8 @@ import { AppWrapper, Error } from './App.styled';
 import 'react-toastify/dist/ReactToastify.css';
 
 export class App extends Component {
+  abortCtrl;
+
   state = {
     images: [],
     query: '',
@@ -30,10 +32,21 @@ export class App extends Component {
 
   getImages = async () => {
     const { query, currentPage } = this.state;
+
+    if (this.abortCtrl) {
+      this.abortCtrl.abort();
+    }
+
+    this.abortCtrl = new AbortController();
+
     try {
       this.setState({ isLoading: true });
 
-      const data = await getImagesAPI(query, currentPage);
+      const data = await getImagesAPI(
+        query,
+        currentPage,
+        this.abortCtrl.signal
+      );
 
       if (data.hits.length === 0) {
         return toast.info('Sorry, no images for your query...', {
