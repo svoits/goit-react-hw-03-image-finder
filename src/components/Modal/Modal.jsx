@@ -2,26 +2,33 @@ import { Component } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import { ModalDiv, Overlay } from './Modal.styled';
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks,
+} from 'body-scroll-lock';
 
 const modalRoot = document.querySelector('#modal');
 
 export class Modal extends Component {
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);
-    document.body.style.overflow = 'hidden';
+    disableBodyScroll('body');
   }
 
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown);
-    document.body.style.overflow = 'unset';
+    clearAllBodyScrollLocks();
   }
 
   handleKeyDown = e => {
     if (e.code === 'Escape') this.props.onClose();
+    enableBodyScroll('body');
   };
 
   handleBackdropClick = e => {
     if (e.target === e.currentTarget) this.props.onClose();
+    enableBodyScroll('body');
   };
 
   render() {
