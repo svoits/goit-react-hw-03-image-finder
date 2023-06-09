@@ -6,3 +6,9 @@ export const AppWrapper = styled.div`
   grid-gap: 16px;
   padding-bottom: 24px;
 `;
+
+export const Error = styled.p`
+  padding-top: 70px;
+  text-align: center;
+  font-size: 24px;
+`;

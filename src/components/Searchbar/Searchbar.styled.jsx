@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 export const SearchBarHeader = styled.header`
   top: 0;
   left: 0;
-  position: sticky;
+  position: fixed;
+  width: 100%;
   z-index: 1100;
   display: flex;
   justify-content: center;
@@ -19,7 +20,7 @@ export const SearchBarHeader = styled.header`
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 `;
 
-export const SearchFrom = styled.form`
+export const SearchForm = styled.form`
   display: flex;
   align-items: center;
   width: 100%;
@@ -67,8 +68,8 @@ export const SearchFormInput = styled.input`
   font-size: 20px;
   border: none;
   outline: none;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
 
   ::placeholder {
     font: inherit;
