@@ -13,7 +13,7 @@ export class Modal extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown);
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = 'unset';
   }
 
   handleKeyDown = e => {
