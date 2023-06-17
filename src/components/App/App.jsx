@@ -71,7 +71,9 @@ export class App extends Component {
         error: null,
       }));
     } catch (error) {
-      this.setState({ error: error.message });
+      if (error.code !== 'ERR_CANCELED') {
+        this.setState({ error: error.message });
+      }
     } finally {
       this.setState({ isLoading: false });
     }
